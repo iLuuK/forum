@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <h1>Mon compte</h1>
+    {{ form_start(userForm) }}
+        {{ form_row(userForm.username) }}
+        {{ form_row(userForm.firstname) }}
+        {{ form_row(userForm.lastname) }}
+        {{ form_row(userForm.email) }}
+        {{ form_row(userForm.address) }}
+        {{ form_row(userForm.postal_code) }}
+        {{ form_row(userForm.city) }}
+        {{ form_row(userForm.phone_number) }}
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    {{ form_end(userForm) }}
+{% endblock %}
