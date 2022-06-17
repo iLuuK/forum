@@ -37,8 +37,7 @@ class UserFixtures extends Fixture
             'postal_code' => '33000',
             'email' => 'contactgillucas@gmail.com',
             'phone_number' => '0000000000',
-            'is_close' => false,
-            'is_ban' => false
+            'city' => 'Bordeaux'
         ]);
 
         $manager->flush();
@@ -59,8 +58,7 @@ class UserFixtures extends Fixture
                 'postal_code' => $this->faker->postcode(),
                 'email' => $this->faker->email(),
                 'phone_number' => $this->faker->numberBetween(1000000000,9999999999),
-                'is_close' => false,
-                'is_ban' => false
+                'city' => $this->faker->city()
             ],
             $data,
         );
@@ -73,6 +71,7 @@ class UserFixtures extends Fixture
             ->setPostalCode($data['postal_code'])
             ->setEmail($data['email'])
             ->setPhoneNumber($data['phone_number'])
+            ->setCity($data['city'])
             ->computeSlug($this->slugger);
 
         $user->setPassword($this->passwordEncoder->hashPassword($user, $data['password']));
