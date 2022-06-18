@@ -11,11 +11,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/user', name: 'user-')]
 class UserController extends AbstractController
 {
     use RoleTrait;
+
+    public function __construct(private SluggerInterface $slugger)
+    {
+    }
 
     #[Route('/', name: 'main')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
@@ -27,6 +32,7 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $form = $this->createForm(UserFormType::class, $user);
         $user->setUpdatedAt();
+        $user->computeSlug($this->slugger);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

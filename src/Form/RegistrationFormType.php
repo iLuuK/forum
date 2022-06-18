@@ -24,13 +24,21 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'Pseudo'
+                'label' => 'Pseudo : ',
+                'constraints' => [
+                    new Length([
+                        'min' => 5,
+                        'minMessage' => 'Le champs doit comporter 5 caractères minimum',
+                        'max' => 100,
+                        'maxMessage' => 'Le champs doit comporter 100 caractères maximum',
+                    ]),
+                ],
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'Prénom',
+                'label' => 'Prénom : ',
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -44,7 +52,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'Nom',
+                'label' => 'Nom : ',
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -58,7 +66,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'Votre addresse (numéro et nom de rue)',
+                'label' => 'Votre addresse (numéro et nom de rue) : ',
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -72,7 +80,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'Code postal',
+                'label' => 'Code postal : ',
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -86,7 +94,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'Ville',
+                'label' => 'Ville : ',
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -100,14 +108,14 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'E-mail'
+                'label' => 'E-mail : '
                 
             ])
             ->add('phone_number', TextType::class, [
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
-                'label' => 'Numéro téléphone (10 chiffres)',
+                'label' => 'Numéro téléphone (10 chiffres) : ',
                 'constraints' => [
                     new Length([
                         'min' => 10,
@@ -118,15 +126,14 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'Vous devez accepter les conditions : ',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions',
                     ]),
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
@@ -142,7 +149,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'Mot de passe'
+                'label' => 'Mot de passe : '
             ])
         ;
     }

@@ -3,7 +3,7 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block body %}
-    <h1>Mon compte</h1>
+    {% include '_partials/title.html.twig' with { title: 'Mon compte' } only %}
     {{ form_start(userForm) }}
         {{ form_row(userForm.username) }}
         {{ form_row(userForm.firstname) }}

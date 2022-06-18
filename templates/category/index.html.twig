@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les catégories{% endblock %}
+
+{% block body %}
+    {% include '_partials/title.html.twig' with { title: 'Les catégories' } only %}
+    {% if is_granted('ROLE_ADMINISTRATOR') %}
+        <a href="{{ path('category-add')}}" class="btn btn-primary btn-lg my-3" tabindex="-1" role="button">Ajouter</a>
+    {% endif %}
+    <div class="list-group">
+        {% for category in categories %}
+            {% include '_partials/category/row.html.twig' with { category: category } only %}
+        {% endfor %}
+    </div>
+{% endblock %}

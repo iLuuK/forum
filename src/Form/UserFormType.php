@@ -19,7 +19,7 @@ class UserFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
-            'label' => 'Pseudo'
+            'label' => 'Pseudo : '
         ])
         ->add('firstname', TextType::class, [
             'attr' => [
@@ -39,7 +39,7 @@ class UserFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
-            'label' => 'Nom',
+            'label' => 'Nom : ',
             'constraints' => [
                 new Length([
                     'min' => 5,
@@ -53,7 +53,7 @@ class UserFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
-            'label' => 'Votre addresse (numéro et nom de rue)',
+            'label' => 'Votre addresse (numéro et nom de rue) : ',
             'constraints' => [
                 new Length([
                     'min' => 5,
@@ -67,7 +67,7 @@ class UserFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
-            'label' => 'Code postal',
+            'label' => 'Code postal : ',
             'constraints' => [
                 new Length([
                     'min' => 5,
@@ -81,7 +81,7 @@ class UserFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
-            'label' => 'Ville',
+            'label' => 'Ville : ',
             'constraints' => [
                 new Length([
                     'min' => 5,
@@ -95,14 +95,14 @@ class UserFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
-            'label' => 'E-mail'
+            'label' => 'E-mail : '
             
         ])
         ->add('phone_number', TextType::class, [
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
-            'label' => 'Numéro téléphone (10 chiffres)',
+            'label' => 'Numéro téléphone (10 chiffres) : ',
             'constraints' => [
                 new Length([
                     'min' => 10,

@@ -3,7 +3,7 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
+    {% include '_partials/title.html.twig' with { title: 'Me déconnecter' } only %}
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.username) }}
@@ -16,6 +16,6 @@
         {{ form_row(registrationForm.phone_number) }}
         {{ form_row(registrationForm.plainPassword) }}
         {{ form_row(registrationForm.agreeTerms) }}
-        <button type="submit" class="btn btn-primary">S'inscrire</button>
+        <button type="submit" class="btn btn-primary mt-2">S'inscrire</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

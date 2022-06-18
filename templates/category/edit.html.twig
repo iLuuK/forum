@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une catégorie{% endblock %}
+
+{% block body %}
+    {% include '_partials/title.html.twig' with { title: 'Modifier une catégorie' } only %}
+    {{ form_start(categoryForm) }}
+        {{ form_row(categoryForm.title) }}
+        {{ form_row(categoryForm.parent) }}
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    {{ form_end(categoryForm) }}
+{% endblock %}

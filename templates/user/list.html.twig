@@ -3,7 +3,7 @@
 {% block title %}Les utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Les utilisateurs</h1>
+    {% include '_partials/title.html.twig' with { title: 'Les utilisateurs' } only %}
 
     <div class="d-flex flex-wrap">
         {% for user in users %}
