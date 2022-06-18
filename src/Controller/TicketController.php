@@ -76,6 +76,7 @@ class TicketController extends AbstractController
         if ($response = $this->checkRole('ROLE_USER')) {
             return $response;
         }
+        
         /** @var User $user */
         $user = $this->getUser();
         return $this->render('ticket/detail.html.twig', [

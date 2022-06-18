@@ -6,6 +6,8 @@ use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\UpdatedAtTrait;
 use App\Entity\Trait\CreatedAtTrait;
 use App\Repository\TicketRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
@@ -43,12 +45,16 @@ class Ticket
     #[ORM\Column(type: 'boolean')]
     private $is_delete;
 
+    #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: TicketComment::class)]
+    private $ticketComments;
+
     public function __construct()
     {
         $this->setUpdatedAt();
         $this->setCreatedAt();
         $this->setIsClose(false);
         $this->setIsDelete(false);
+        $this->ticketComments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,6 +141,36 @@ class Ticket
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TicketComment>
+     */
+    public function getTicketComments(): Collection
+    {
+        return $this->ticketComments;
+    }
+
+    public function addTicketComment(TicketComment $ticketComment): self
+    {
+        if (!$this->ticketComments->contains($ticketComment)) {
+            $this->ticketComments[] = $ticketComment;
+            $ticketComment->setTicket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicketComment(TicketComment $ticketComment): self
+    {
+        if ($this->ticketComments->removeElement($ticketComment)) {
+            // set the owning side to null (unless already changed)
+            if ($ticketComment->getTicket() === $this) {
+                $ticketComment->setTicket(null);
+            }
+        }
 
         return $this;
     }

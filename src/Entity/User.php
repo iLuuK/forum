@@ -70,6 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Ticket::class, orphanRemoval: true)]
     private $tickets;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: TicketComment::class)]
+    private $ticketComments;
+
     public function __construct()
     {
         $this->setUpdatedAt();
@@ -77,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->is_ban = false;
         $this->is_close = false;
         $this->tickets = new ArrayCollection();
+        $this->ticketComments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,6 +186,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    public function getFullName(): ?string{
+        return $this->firstname." ".$this->lastname;
     }
 
     public function getAddress(): ?string
@@ -292,6 +300,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($ticket->getAuthor() === $this) {
                 $ticket->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TicketComment>
+     */
+    public function getTicketComments(): Collection
+    {
+        return $this->ticketComments;
+    }
+
+    public function addTicketComment(TicketComment $ticketComment): self
+    {
+        if (!$this->ticketComments->contains($ticketComment)) {
+            $this->ticketComments[] = $ticketComment;
+            $ticketComment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicketComment(TicketComment $ticketComment): self
+    {
+        if ($this->ticketComments->removeElement($ticketComment)) {
+            // set the owning side to null (unless already changed)
+            if ($ticketComment->getAuthor() === $this) {
+                $ticketComment->setAuthor(null);
             }
         }
 

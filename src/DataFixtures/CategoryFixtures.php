@@ -25,11 +25,11 @@ class CategoryFixtures extends Fixture
         $count = $this->faker->numberBetween(5, 6);
         for ($a = 1; $a <= $count; $a++) {
             $parent = $this->createCategory($manager);
-            $childCount = $this->faker->numberBetween(0, 1);
+            $childCount = $this->faker->numberBetween(1, 3);
             for ($b = 0; $b < $childCount; $b++) {
                 $category = $this->createCategory($manager, $parent);
 
-                $subChildCount = $this->faker->numberBetween(0, 2);
+                $subChildCount = $this->faker->numberBetween(1, 2);
                 for ($c = 0; $c < $subChildCount; $c++) {
                     $this->createCategory($manager, $category);
                 }
