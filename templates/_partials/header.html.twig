@@ -12,6 +12,11 @@
                         <a class="nav-link active" aria-current="page" href="#">Catégories</a>
                     </li>
                 {% endif %}
+                {% if is_granted('ROLE_ADMINISTRATOR') %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('user-list') }}">Liste utilisateurs</a>
+                    </li>
+                {% endif %}
             </ul>
             <div class="text-end">
                 {% if app.user %}

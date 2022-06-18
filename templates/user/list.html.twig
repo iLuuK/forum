@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Les utilisateurs</h1>
+
+    <div class="d-flex flex-wrap">
+        {% for user in users %}
+            {% include '_partials/user/card.html.twig' with { user: user } only %}
+        {% endfor %}
+    </div>
+{% endblock %}

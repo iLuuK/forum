@@ -54,6 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 10, unique: true)]
     private $phone_number;
 
+    //TODO change ban and close in $status with enum {enabled, banned, closed}
     #[ORM\Column(type: 'boolean')]
     private $is_ban;
 
@@ -98,17 +99,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function isDeleted(): bool
-    {
-        return $this->is_close;
-    }
-
-    public function isBan(): bool
-    {
-        return $this->is_ban;
-    }
-
 
     /**
      * A visual identifier that represents this user.
@@ -235,7 +225,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsBan(): ?bool
+    public function getIsBan(): ?bool
     {
         return $this->is_ban;
     }
@@ -247,7 +237,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsClose(): ?bool
+    public function getIsClose(): ?bool
     {
         return $this->is_close;
     }

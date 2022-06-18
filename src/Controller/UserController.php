@@ -39,30 +39,100 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/delete', name: 'delete')]
-    public function delete(EntityManagerInterface $entityManager): Response
+    #[Route('/delete-me', name: 'delete-me')]
+    public function deleteMe(EntityManagerInterface $entityManager): Response
     {
         if ($response = $this->checkRole('ROLE_USER')) {
             return $response;
         }
         /** @var User $user */
         $user = $this->getUser();
-        $user->setUsername("deleted");
-        $user->setFirstname("deleted");
-        $user->setLastname("deleted");
-        $user->setEmail("deleted");
-        $user->setPassword("deleted");
-        $user->setAddress("deleted");
-        $user->setPostalCode("deleted");
-        $user->setCity("deleted");
-        $user->setPhoneNumber("deleted");
-        $user->setRoles(["deleted"]);
-        $user->setSlug("deleted");
-        $user->setIsClose(true);
+        $user = $this->deleteUser($user);
 
         $entityManager->persist($user);
         $entityManager->flush();
 
         return $this->redirectToRoute('authentication-logout');
+    }
+
+    private function deleteUser(User $user): User{
+        $user->setIsClose(true);
+        //TODO anonymize user ?
+        return $user;
+    }
+
+    private function checkIsNotUser(User $user): ?Response{
+        /** @var User $actualuser */
+        $actualuser = $this->getUser();
+        if($actualuser->getUsername() == $user->getUsername()){
+            return $this->redirectToRoute('user-list');
+        }
+        return null;
+    }
+
+    #[Route('/{slug}/delete', name: 'delete')]
+    public function delete(EntityManagerInterface $entityManager, User $user): Response
+    {
+        if ($response = $this->checkRole('ROLE_ADMINISTRATOR')) {
+            return $response;
+        }
+        if($response = $this->checkIsNotUser($user)){
+            return $response;
+        }
+
+        $user = $this->deleteUser($user);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user-list');
+    }
+
+    #[Route('/{slug}/ban', name: 'ban')]
+    public function ban(EntityManagerInterface $entityManager, User $user): Response
+    {
+        if ($response = $this->checkRole('ROLE_ADMINISTRATOR')) {
+            return $response;
+        }
+        if($response = $this->checkIsNotUser($user)){
+            return $response;
+        }
+
+        $user->setIsBan(true);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user-list');
+    }
+
+    #[Route('/{slug}/unban', name: 'unban')]
+    public function unban(EntityManagerInterface $entityManager, User $user): Response
+    {
+        if ($response = $this->checkRole('ROLE_ADMINISTRATOR')) {
+            return $response;
+        }
+        if($response = $this->checkIsNotUser($user)){
+            return $response;
+        }
+        $user->setIsBan(false);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user-list');
+    }
+
+    #[Route('/list', name: 'list')]
+    public function list(UserRepository $userRepository): Response
+    {
+        return $this->render('user/list.html.twig', [
+            'users' => $userRepository->findBy(
+                [],
+                ['created_at' => 'desc'],
+                12,
+                0
+            ),
+        ]);
     }
 }

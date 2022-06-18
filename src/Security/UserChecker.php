@@ -2,10 +2,9 @@
 namespace App\Security;
 
 use App\Entity\User;
-use App\Security\AuthenticationBannedException;
-use App\Security\AuthenticationDeletedException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class UserChecker implements UserCheckerInterface
 {
@@ -15,12 +14,12 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if ($user->isDeleted()) {
-            throw new AuthenticationDeletedException("Mauvais identifiant");
+        if ($user->getIsClose()) {
+            throw new CustomUserMessageAuthenticationException("Le compte est clôturé.");
         }
 
-        if ($user->isBan()) {
-            throw new AuthenticationBannedException("Vous avez été banni");
+        if ($user->getIsBan()) {
+            throw new CustomUserMessageAuthenticationException("Le compte est banni.");
         }
     }
 
