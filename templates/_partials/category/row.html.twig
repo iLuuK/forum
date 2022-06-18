@@ -4,7 +4,7 @@
             <span>{{category.getParent().getTitle()}} -> </span>
         {% endif %}
         <span class="fw-bold">{{category.getTitle()}}</span>
-        <span class="badge bg-primary rounded-pill">{{category.getChildrenCount()}}</span>        
+        <span class="badge bg-primary rounded-pill">{{category.getTicketCount()}}</span>        
     </div>
     {% if is_granted('ROLE_ADMINISTRATOR') %}
         <button onclick="window.location.href='{{ path('category-edit', {slug: category.getSlug()}) }}'" type="button" class="btn btn-primary">Modifier</button>

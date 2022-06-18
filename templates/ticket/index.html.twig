@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les tickets les plus récents{% endblock %}
+
+{% block body %}
+    {% include '_partials/title.html.twig' with { title: 'Les tickets les plus récents (Catégorie - Nom)' } only %}
+    <div class="list-group">
+        {% for ticket in tickets %}
+            {% include '_partials/ticket/row.html.twig' with { ticket: ticket } only %}
+        {% endfor %}
+    </div>
+{% endblock %}

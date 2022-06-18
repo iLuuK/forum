@@ -132,13 +132,11 @@ class UserController extends AbstractController
     #[Route('/list', name: 'list')]
     public function list(UserRepository $userRepository): Response
     {
+        if ($response = $this->checkRole('ROLE_ADMINISTRATOR')) {
+            return $response;
+        }
         return $this->render('user/list.html.twig', [
-            'users' => $userRepository->findBy(
-                [],
-                ['created_at' => 'desc'],
-                12,
-                0
-            ),
+            'users' => $userRepository->findAll(),
         ]);
     }
 }

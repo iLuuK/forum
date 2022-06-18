@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+    {% include '_partials/title.html.twig' with { title: 'Bienvenue' } only %}
+    <p>Inscris toi 😀</p>
+{% endblock %}

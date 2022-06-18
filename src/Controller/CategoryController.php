@@ -21,6 +21,9 @@ class CategoryController extends AbstractController
     #[Route('/', name: 'main')]
     public function index(CategoryRepository $categoryRepository): Response
     {
+        if ($response = $this->checkRole('ROLE_USER')) {
+            return $response;
+        }
         return $this->render('category/index.html.twig', [
             'categories' => $categoryRepository->findByNoParent(0)
         ]);

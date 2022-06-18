@@ -34,6 +34,9 @@ class Category
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private $categories;
 
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Ticket::class, orphanRemoval: true)]
+    private $tickets;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,6 +59,7 @@ class Category
         $this->setUpdatedAt();
         $this->setCreatedAt();
         $this->categories = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getParent(): ?self
@@ -74,8 +78,8 @@ class Category
         return $this->parent != null;
     }
 
-    public function getChildrenCount(): int{
-        return $this->categories->count();
+    public function getTicketCount(): int{
+        return $this->tickets->count();
     }
 
     /**
@@ -102,6 +106,36 @@ class Category
             // set the owning side to null (unless already changed)
             if ($category->getParent() === $this) {
                 $category->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->removeElement($ticket)) {
+            // set the owning side to null (unless already changed)
+            if ($ticket->getCategory() === $this) {
+                $ticket->setCategory(null);
             }
         }
 

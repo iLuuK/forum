@@ -6,6 +6,8 @@ use App\Entity\Trait\UpdatedAtTrait;
 use App\Entity\Trait\CreatedAtTrait;
 use App\Entity\Trait\SlugTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -64,12 +66,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 100)]
     private $city;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Ticket::class, orphanRemoval: true)]
+    private $tickets;
+
     public function __construct()
     {
         $this->setUpdatedAt();
         $this->setCreatedAt();
         $this->is_ban = false;
         $this->is_close = false;
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -257,6 +263,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->removeElement($ticket)) {
+            // set the owning side to null (unless already changed)
+            if ($ticket->getAuthor() === $this) {
+                $ticket->setAuthor(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,5 @@
+<a href="{{ path('ticket-detail', {slug: ticket.getSlug()}) }}" class="list-group-item list-group-item-action align-items-center">
+    <span>{{ticket.getCategory().getTitle()}}</span>
+    <span> - </span>
+    <span class="fw-bold">{{ticket.getTitle()}}</span>
+</a>

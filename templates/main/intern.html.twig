@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tu es connecté{% endblock %}
+
+{% block body %}
+    {% include '_partials/title.html.twig' with { title: 'Tu es connecté' } only %}
+    <p>Clique sur "Tickets" pour voir les plus récents ⏳</p>
+    <p>Clique sur "Catégories" pour voir les catégories 💡</p>
+{% endblock %}
