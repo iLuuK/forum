@@ -1,15 +1,16 @@
-<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-    <div>
+<li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <a class="text-dark text-decoration-none" href="{{ path('ticket-category', {slug: category.getSlug()}) }}">
         {% if category.hasParent() %}
             <span>{{category.getParent().getTitle()}} -> </span>
         {% endif %}
         <span class="fw-bold">{{category.getTitle()}}</span>
         <span class="badge bg-primary rounded-pill">{{category.getTicketCount()}}</span>        
-    </div>
+    </a>
     {% if is_granted('ROLE_ADMINISTRATOR') %}
-        <button onclick="window.location.href='{{ path('category-edit', {slug: category.getSlug()}) }}'" type="button" class="btn btn-primary">Modifier</button>
+        <a href="{{ path('category-edit', {slug: category.getSlug()}) }}" class="btn btn-primary" tabindex="-1" role="button">Modifier</a>
     {% endif %}
-</a>
+</li>
 {% for child in category.categories %}
     {% include '_partials/category/row.html.twig' with { category: child } only %}
 {% endfor %}
+

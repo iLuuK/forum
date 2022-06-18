@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Ticket;
 use App\Entity\Trait\UpdatedAtTrait;
 use App\Entity\Trait\CreatedAtTrait;
 use App\Entity\Trait\SlugTrait;

@@ -37,10 +37,14 @@ class Ticket
     #[ORM\Column(type: 'datetime')]
     private $published_date;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_close;
+
     public function __construct()
     {
         $this->setUpdatedAt();
         $this->setCreatedAt();
+        $this->setIsClose(false);
     }
 
     public function getId(): ?int
@@ -103,6 +107,18 @@ class Ticket
     public function setPublishedDate(\DateTimeInterface $published_date): self
     {
         $this->published_date = $published_date;
+
+        return $this;
+    }
+
+    public function isIsClose(): ?bool
+    {
+        return $this->is_close;
+    }
+
+    public function setIsClose(bool $is_close): self
+    {
+        $this->is_close = $is_close;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Ticket;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Entity\Trait\UpdatedAtTrait;
 use App\Entity\Trait\CreatedAtTrait;

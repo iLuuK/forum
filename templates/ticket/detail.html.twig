@@ -3,7 +3,13 @@
 {% block title %}{{ticket.getTitle()}}{% endblock %}
 
 {% block body %}
-    <h1 class="mt-3 mb-0">{{ticket.getTitle()}} - <i>{{ticket.getAuthor().getFirstname()}} {{ticket.getAuthor().getLastname()}}</i></h1>
-    <small>{{ticket.getCategory().getTitle()}}</small>
-    <p class="mt-3">{{ticket.getContent()}}</p>
+    <div class="d-flex flex-column">
+        {% if is_granted('ROLE_ADMINISTRATOR') %}
+            <a href="{{ path('ticket-delete', {slug: ticket.getSlug()}) }}" class="btn btn-danger mt-3" tabindex="-1" role="button">Supprimer le ticket</a>
+        {% endif %}
+        <h1 class="mt-3 mb-0">{{ticket.getTitle()}} - <i>{{ticket.getAuthor().getFirstname()}} {{ticket.getAuthor().getLastname()}}</i></h1>
+        <small>{{ticket.getCategory().getTitle()}}</small>
+        <p class="mt-3">{{ticket.getContent()}}</p>
+    </div>
+
 {% endblock %}

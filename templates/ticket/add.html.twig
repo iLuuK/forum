@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un ticket{% endblock %}
+
+{% block body %}
+    {% include '_partials/title.html.twig' with { title: 'Ajoute un ticket' } only %}
+    {{ form_start(ticketForm) }}
+        {{ form_row(ticketForm.title) }}
+        {{ form_row(ticketForm.content) }}
+        {{ form_row(ticketForm.category) }}
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    {{ form_end(ticketForm) }}
+{% endblock %}

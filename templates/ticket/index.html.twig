@@ -9,4 +9,5 @@
             {% include '_partials/ticket/row.html.twig' with { ticket: ticket } only %}
         {% endfor %}
     </div>
+    <a href="{{ path('ticket-add') }}" class="btn btn-primary mt-3" tabindex="-1" role="button">Ajouter un ticket</a>
 {% endblock %}

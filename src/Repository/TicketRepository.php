@@ -39,20 +39,26 @@ class TicketRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Ticket[] Returns an array of Ticket objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findLast(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.is_close = :val')
+            ->setParameter('val', false)
+            ->orderBy('t.updated_at', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+   public function findByCategory($value): array
+   {
+       return $this->createQueryBuilder('t')
+           ->andWhere('t.category = :val')
+           ->setParameter('val', $value)
+           ->orderBy('t.updated_at', 'DESC')
+           ->getQuery()
+           ->getResult();
+   }
 
 //    public function findOneBySomeField($value): ?Ticket
 //    {
