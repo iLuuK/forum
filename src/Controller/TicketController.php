@@ -14,6 +14,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Form\TicketFormType;
+use App\Form\TicketCommentFormType;
+use App\Entity\TicketComment;
 
 #[Route('/ticket', name: 'ticket-')]
 class TicketController extends AbstractController
@@ -51,7 +53,7 @@ class TicketController extends AbstractController
             $ticket->setPublishedDate(new \DateTimeImmutable());
             $entityManager->persist($ticket);
             $entityManager->flush();
-            return $this->redirectToRoute('ticket-main');
+            return $this->redirectToRoute('ticket-detail', ['slug' => $ticket->getSlug()]);
         }
         return $this->render('ticket/add.html.twig', [
             'ticketForm' => $form->createView()
@@ -71,7 +73,7 @@ class TicketController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'detail')]
-    public function detail(Ticket $ticket): Response
+    public function detail(Request $request,EntityManagerInterface $entityManager, Ticket $ticket): Response
     {
         if ($response = $this->checkRole('ROLE_USER')) {
             return $response;
@@ -79,9 +81,30 @@ class TicketController extends AbstractController
         
         /** @var User $user */
         $user = $this->getUser();
+    
+        $ticketComment = new TicketComment();
+        $form = $this->createForm(TicketCommentFormType::class, $ticketComment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            $ticketComment->setAuthor($user);
+            $ticketComment->setPublishedDate(new \DateTimeImmutable());
+            $ticketComment->setTicket($ticket);
+            $entityManager->persist($ticketComment);
+            $entityManager->flush();
+            return $this->redirectToRoute('ticket-detail', ['slug' => $ticket->getSlug()]);
+        }
+
+        $ticketCommentWithoutClosed = $ticket->getTicketComments()->filter(function(TicketComment $ticketComment) {
+            return $ticketComment->getIsDelete() == false;
+        });
+
         return $this->render('ticket/detail.html.twig', [
             'ticket' => $ticket,
-            'user' => $user
+            'ticketCommentWithoutClosed' => $ticketCommentWithoutClosed,
+            'user' => $user,
+            'ticketCommentForm' => $form->createView()
         ]);
     }
 

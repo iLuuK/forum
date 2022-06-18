@@ -36,7 +36,8 @@ class TicketCommentFixtures extends Fixture implements DependentFixtureInterface
             $ticketComment = (new TicketComment())
                 ->setTicket($randomTicket)
                 ->setContent($this->faker->realText(300))
-                ->setAuthor($randomUser);
+                ->setAuthor($randomUser)
+                ->setPublishedDate($this->faker->dateTime());
 
             $manager->persist($ticketComment);
             $this->setReference('ticketComment-' . $a, $ticketComment);

@@ -31,6 +31,9 @@ class TicketComment
     #[ORM\Column(type: 'boolean')]
     private $is_delete;
 
+    #[ORM\Column(type: 'datetime')]
+    private $published_date;
+
     public function __construct()
     {
         $this->setUpdatedAt();
@@ -87,6 +90,18 @@ class TicketComment
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    public function getPublishedDate(): ?\DateTimeInterface
+    {
+        return $this->published_date;
+    }
+
+    public function setPublishedDate(\DateTimeInterface $published_date): self
+    {
+        $this->published_date = $published_date;
 
         return $this;
     }

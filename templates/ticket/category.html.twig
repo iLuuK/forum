@@ -1,12 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{tickets[0].getCategory().getTitle()}} - Les tickets{% endblock %}
+{% block title %}Les tickets{% endblock %}
 
 {% block body %}
-    <h1 class="my-3">{{tickets[0].getCategory().getTitle()}} - Les tickets</h1>
-    <div class="list-group">
-        {% for ticket in tickets %}
-            {% include '_partials/ticket/row.html.twig' with { ticket: ticket } only %}
-        {% endfor %}
-    </div>
+    {% if tickets|length > 0 %}
+        <h1 class="my-3">{{tickets[0].getCategory().getTitle()}} - Les tickets</h1>
+        <div class="list-group">
+            {% for ticket in tickets %}
+                {% include '_partials/ticket/row.html.twig' with { ticket: ticket } only %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1 class="my-3">Aucun ticket dans cette catégorie</h1>
+    {% endif %}
+
 {% endblock %}
