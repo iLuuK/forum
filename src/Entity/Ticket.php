@@ -153,6 +153,17 @@ class Ticket
         return $this->ticketComments;
     }
 
+    public function getNotClosedTicketComments(): Collection
+    {
+        return $this->getTicketComments()->filter(function(TicketComment $ticketComment) {
+            return $ticketComment->getIsDelete() == false;
+        });
+    }
+
+    public function getNotClosedTicketCommentsCount(): int{
+        return $this->getNotClosedTicketComments()->count();
+    }
+
     public function addTicketComment(TicketComment $ticketComment): self
     {
         if (!$this->ticketComments->contains($ticketComment)) {

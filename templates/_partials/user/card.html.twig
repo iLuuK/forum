@@ -35,14 +35,15 @@
             </li>
         </ul>
         <div class="card-footer">
+        <a href="{{ path('user-detail', {slug: user.getSlug()}) }}" class="btn btn-primary btn-lg my-2" tabindex="-1" role="button">Voir détail</a>
         {% if user.getIsClose() %}
         {% else %}
-            <a href="{{ path('user-delete', {slug: user.getSlug()}) }}" class="btn btn-danger btn-lg" tabindex="-1" role="button">Clôturer</a>
+            <a href="{{ path('user-delete', {slug: user.getSlug()}) }}" class="btn btn-danger btn-lg my-2" tabindex="-1" role="button">Clôturer</a>
         {% endif %}
         {% if user.getIsBan() %}
-            <a href="{{ path('user-unban', {slug: user.getSlug()}) }}" class="btn btn-warning btn-lg" tabindex="-1" role="button">Débannir</a>
+            <a href="{{ path('user-unban', {slug: user.getSlug()}) }}" class="btn btn-warning btn-lg my-2" tabindex="-1" role="button">Débannir</a>
         {% else %}
-            <a href="{{ path('user-ban', {slug: user.getSlug()}) }}" class="btn btn-warning btn-lg" tabindex="-1" role="button">Bannir</a>
+            <a href="{{ path('user-ban', {slug: user.getSlug()}) }}" class="btn btn-warning btn-lg my-2" tabindex="-1" role="button">Bannir</a>
         {% endif %}
         </div>
     </div>

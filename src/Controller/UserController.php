@@ -139,4 +139,19 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+
+    #[Route('/{slug}/detail', name: 'detail')]
+    public function detail(UserRepository $userRepository, User $user): Response
+    {
+        if ($response = $this->checkRole('ROLE_USER')) {
+            return $response;
+        }
+
+        $notClosedTicketComments = $user->getNotClosedTicketComments();
+
+        return $this->render('user/detail.html.twig', [
+            'user' => $user,
+            'ticketComments' => $notClosedTicketComments
+        ]);
+    }
 }

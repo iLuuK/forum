@@ -10,11 +10,12 @@
         {% if ticket.getIsClose() == false and (is_granted('ROLE_ADMINISTRATOR') or ticket.getAuthor().getId() == user.getId()) %}
             <a href="{{ path('ticket-close', {slug: ticket.getSlug()}) }}" class="btn btn-warning mb-3" tabindex="-1" role="button">Clôturer le ticket</a>            
         {% endif %}
-        <h3 class="mt-3 mb-0">{{ticket.getTitle()}} - <i>{{ticket.getAuthor().getFullName()}}</i>{% if ticket.getIsClose() %}  <span class="badge bg-primary">Clôturé</span>{% endif %}</h3>
+        <h3 class="mt-3 mb-0">{{ticket.getTitle()}}  {% if ticket.getIsClose() %}<span class="badge bg-primary">Clôturé</span>{% endif %}</h3>
+        <a href="{{ path('user-detail', {slug: ticket.getAuthor().getSlug()}) }}" class="text-dark"><i>Par: {{ticket.getAuthor().getFullName()}}</i></a>
         <small>{{ticket.getCategory().getTitle()}}</small>
         <p class="my-3">{{ticket.getContent()}}</p>
         {% if ticketCommentWithoutClosed.count() > 0 %}
-            <h4>Les commentaires :</h4>
+            <h4 class="my-4">Les commentaires :</h4>
         {% endif %}
         {% for ticketComment in ticketCommentWithoutClosed %}
             {% include '_partials/ticketComment/row.html.twig' with { ticketComment: ticketComment } only %}

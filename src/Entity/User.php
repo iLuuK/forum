@@ -314,6 +314,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->ticketComments;
     }
 
+    public function getNotClosedTicketComments(): Collection
+    {
+        return $this->getTicketComments()->filter(function(TicketComment $ticketComment) {
+            return $ticketComment->getIsDelete() == false;
+        });
+    }
+
     public function addTicketComment(TicketComment $ticketComment): self
     {
         if (!$this->ticketComments->contains($ticketComment)) {

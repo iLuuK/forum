@@ -96,9 +96,7 @@ class TicketController extends AbstractController
             return $this->redirectToRoute('ticket-detail', ['slug' => $ticket->getSlug()]);
         }
 
-        $ticketCommentWithoutClosed = $ticket->getTicketComments()->filter(function(TicketComment $ticketComment) {
-            return $ticketComment->getIsDelete() == false;
-        });
+        $ticketCommentWithoutClosed = $ticket->getNotClosedTicketComments();
 
         return $this->render('ticket/detail.html.twig', [
             'ticket' => $ticket,

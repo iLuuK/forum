@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}user.getFullName(){% endblock %}
+
+{% block body %}
+    <h1 class="my-3">{{user.getFullName()}}</h1>
+    {% if ticketComments.count() > 0 %}
+        <h4 class="my-5">Ses commentaires :</h4>
+    {% endif %}
+    {% for ticketComment in ticketComments %}
+        {% include '_partials/ticketComment/row.html.twig' with { ticketComment: ticketComment, ticketSlug: ticketComment.getTicket().getSlug() } only %}
+    {% endfor %}
+{% endblock %}

@@ -1,11 +1,14 @@
-{% if true %}
-    <div class="d-flex flex-column my-2 border-bottom pb-2">
-        <p>{{ticketComment.getContent()}}</p>
-        <small class="align-self-end fw-bold">{{ticketComment.getAuthor().getFullName()}}</small>
-        {% if is_granted('ROLE_ADMINISTRATOR') %}
-        <div class="align-self-end">
-            <a href="{{ path('ticketComment-delete', {id: ticketComment.getId()}) }}" class="btn btn-danger my-3" tabindex="-1" role="button">Supprimer le commentaire</a>
-        </div>
-        {% endif %}
+<div class="d-flex flex-column my-2 border-bottom pb-2">
+    <p>{{ticketComment.getContent()}}</p>
+    <a href="{{ path('user-detail', {slug: ticketComment.getAuthor().getSlug()}) }}" class="text-dark align-self-end fw-bold">{{ticketComment.getAuthor().getFullName()}}</a>
+    {% if is_granted('ROLE_ADMINISTRATOR') %}
+    <div class="align-self-end">
+        <a href="{{ path('ticketComment-delete', {id: ticketComment.getId()}) }}" class="btn btn-danger my-3" tabindex="-1" role="button">Supprimer le commentaire</a>
     </div>
-{% endif %}
+    {% endif %}
+    {% if ticketSlug is defined %}
+    <div class="align-self-end">
+        <a href="{{ path('ticket-detail', {slug: ticketSlug}) }}" class="text-dark">Voir le ticket</a>
+    </div>
+    {% endif %}
+</div>
