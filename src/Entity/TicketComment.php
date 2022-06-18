@@ -28,10 +28,14 @@ class TicketComment
     #[ORM\ManyToOne(targetEntity: Ticket::class, inversedBy: 'ticketComments')]
     private $ticket;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_delete;
+
     public function __construct()
     {
         $this->setUpdatedAt();
         $this->setCreatedAt();
+        $this->setIsDelete(false);
     }
 
     public function getId(): ?int
@@ -71,6 +75,18 @@ class TicketComment
     public function setTicket(?Ticket $ticket): self
     {
         $this->ticket = $ticket;
+
+        return $this;
+    }
+
+    public function getIsDelete(): ?bool
+    {
+        return $this->is_delete;
+    }
+
+    public function setIsDelete(bool $is_delete): self
+    {
+        $this->is_delete = $is_delete;
 
         return $this;
     }

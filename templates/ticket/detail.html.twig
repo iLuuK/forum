@@ -15,11 +15,17 @@
         <p class="my-3">{{ticket.getContent()}}</p>
         <h4>Les commentaires :</h4>
         {% for ticketComment in ticket.getTicketComments %}
-            <div class="d-flex flex-column my-2 border-bottom pb-2">
-                <p>{{ticketComment.getContent()}}</p>
-                <small class="align-self-end fw-bold">{{ticketComment.getAuthor().getFullName()}}</small>
-            </div>
+            {% if ticketComment.getIsDelete() == false %}
+                <div class="d-flex flex-column my-2 border-bottom pb-2">
+                    <p>{{ticketComment.getContent()}}</p>
+                    <small class="align-self-end fw-bold">{{ticketComment.getAuthor().getFullName()}}</small>
+                    {% if is_granted('ROLE_ADMINISTRATOR') %}
+                    <div class="align-self-end">
+                        <a href="{{ path('ticketComment-delete', {id: ticketComment.getId()}) }}" class="btn btn-danger my-3" tabindex="-1" role="button">Supprimer le commentaire</a>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endif %}
         {% endfor %}
-
     </div>
 {% endblock %}

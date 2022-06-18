@@ -16,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Form\TicketFormType;
 
 
-#[Route('/ticket/comment', name: 'ticket-comment-')]
+#[Route('/ticket/comment', name: 'ticketComment-')]
 class TicketCommentController extends AbstractController
 {
     use RoleTrait;
@@ -47,5 +47,21 @@ class TicketCommentController extends AbstractController
         return $this->render('ticket/add.html.twig', [
             'ticketForm' => $form->createView()
         ]);
+    }
+
+    #[Route('/{id}/delete', name: 'delete')]
+    public function close(EntityManagerInterface $entityManager, TicketComment $ticketComment): Response
+    {
+        if ($response = $this->checkRole('ROLE_ADMINISTRATOR')) {
+            return $response;
+        }
+
+        $ticketComment->setIsDelete(true);
+        $ticketComment->setUpdatedAt();
+
+        $entityManager->persist($ticketComment);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('ticket-detail', ['slug' => $ticketComment->getTicket()->getSlug()]);
     }
 }
