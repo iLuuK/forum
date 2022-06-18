@@ -40,11 +40,15 @@ class Ticket
     #[ORM\Column(type: 'boolean')]
     private $is_close;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_delete;
+
     public function __construct()
     {
         $this->setUpdatedAt();
         $this->setCreatedAt();
         $this->setIsClose(false);
+        $this->setIsDelete(false);
     }
 
     public function getId(): ?int
@@ -111,7 +115,7 @@ class Ticket
         return $this;
     }
 
-    public function isIsClose(): ?bool
+    public function getIsClose(): ?bool
     {
         return $this->is_close;
     }
@@ -119,6 +123,18 @@ class Ticket
     public function setIsClose(bool $is_close): self
     {
         $this->is_close = $is_close;
+
+        return $this;
+    }
+
+    public function getIsDelete(): ?bool
+    {
+        return $this->is_delete;
+    }
+
+    public function setIsDelete(bool $is_delete): self
+    {
+        $this->is_delete = $is_delete;
 
         return $this;
     }

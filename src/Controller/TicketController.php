@@ -76,8 +76,11 @@ class TicketController extends AbstractController
         if ($response = $this->checkRole('ROLE_USER')) {
             return $response;
         }
+        /** @var User $user */
+        $user = $this->getUser();
         return $this->render('ticket/detail.html.twig', [
-            'ticket' => $ticket
+            'ticket' => $ticket,
+            'user' => $user
         ]);
     }
 
@@ -88,12 +91,35 @@ class TicketController extends AbstractController
             return $response;
         }
 
-        $ticket->setIsClose(true);
-
+        $ticket->setIsDelete(true);
+        $ticket->setUpdatedAt();
         $entityManager->persist($ticket);
         $entityManager->flush();
 
         return $this->redirectToRoute('ticket-main');
+    }
+
+    #[Route('/{slug}/close', name: 'close')]
+    public function close(EntityManagerInterface $entityManager, Ticket $ticket): Response
+    {
+        if ($response = $this->checkRole('ROLE_USER')) {
+            return $response;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        if($user->getId() != $ticket->getAuthor()->getId()){
+            if($response = $this->checkRole('ROLE_ADMINISTRATOR')){
+                return $this->redirectToRoute('ticket-detail', ['slug' => $ticket->getSlug()]);
+            }
+        }
+        $ticket->setIsClose(true);
+        $ticket->setUpdatedAt();
+
+        $entityManager->persist($ticket);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('ticket-detail', ['slug' => $ticket->getSlug()]);
     }
 
 }

@@ -35,8 +35,21 @@ class UserFixtures extends Fixture
             'lastname' => 'GIL',
             'address' => '0 rue de bordeaux',
             'postal_code' => '33000',
-            'email' => 'contactgillucas@gmail.com',
+            'email' => 'admin@email.com',
             'phone_number' => '0000000000',
+            'city' => 'Bordeaux'
+        ]);
+
+        $this->createUser($manager, [
+            'username' => 'lambda',
+            'roles' => ['ROLE_USER'],
+            'password' => 'lambda',
+            'firstname' => 'Lucas',
+            'lastname' => 'GIL',
+            'address' => '0 rue de bordeaux',
+            'postal_code' => '33000',
+            'email' => 'lambda@email.com',
+            'phone_number' => '9999999999',
             'city' => 'Bordeaux'
         ]);
 

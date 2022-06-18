@@ -100,7 +100,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->setSlug(
             $slugger->slug(
-                $this->getFirstname() . ' ' . $this->getLastname()
+                $this->getUsername()
             )->lower()
         );
 

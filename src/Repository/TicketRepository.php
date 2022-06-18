@@ -42,7 +42,7 @@ class TicketRepository extends ServiceEntityRepository
     public function findLast(): array
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.is_close = :val')
+            ->andWhere('t.is_delete = :val')
             ->setParameter('val', false)
             ->orderBy('t.updated_at', 'DESC')
             ->setMaxResults(10)
