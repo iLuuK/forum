@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\UpdatedAtTrait;
 use App\Entity\Trait\CreatedAtTrait;
 use App\Entity\Trait\SlugTrait;
 use App\Repository\UserRepository;
@@ -17,6 +18,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[UniqueEntity(fields: ['phone_number'], message: 'Ce numéro est déjà utilisé')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use UpdatedAtTrait;
     use CreatedAtTrait;
     use SlugTrait;
 
@@ -63,7 +65,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->created_at = new \DateTimeImmutable();
+        $this->setUpdatedAt();
+        $this->setCreatedAt();
         $this->is_ban = false;
         $this->is_close = false;
     }
@@ -95,6 +98,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function isDeleted(): bool
+    {
+        return $this->is_close;
+    }
+
+    public function isBan(): bool
+    {
+        return $this->is_ban;
+    }
+
 
     /**
      * A visual identifier that represents this user.
