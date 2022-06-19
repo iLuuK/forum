@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\UpdatedAtTrait;
 use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\IsDeletedTrait;
 use App\Repository\TicketRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,6 +17,7 @@ class Ticket
     use UpdatedAtTrait;
     use CreatedAtTrait;
     use SlugTrait;
+    use IsDeletedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -42,9 +44,6 @@ class Ticket
     #[ORM\Column(type: 'boolean')]
     private $is_close;
 
-    #[ORM\Column(type: 'boolean')]
-    private $is_delete;
-
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: TicketComment::class)]
     private $ticketComments;
 
@@ -56,7 +55,7 @@ class Ticket
         $this->setUpdatedAt();
         $this->setCreatedAt();
         $this->setIsClose(false);
-        $this->setIsDelete(false);
+        $this->setIsDeleted(false);
         $this->ticketComments = new ArrayCollection();
         $this->reactions = new ArrayCollection();
     }
@@ -137,17 +136,6 @@ class Ticket
         return $this;
     }
 
-    public function getIsDelete(): ?bool
-    {
-        return $this->is_delete;
-    }
-
-    public function setIsDelete(bool $is_delete): self
-    {
-        $this->is_delete = $is_delete;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, TicketComment>
@@ -160,7 +148,7 @@ class Ticket
     public function getNoDeleteTicketComments(): Collection
     {
         return $this->getTicketComments()->filter(function(TicketComment $ticketComment) {
-            return $ticketComment->getIsDelete() == false;
+            return $ticketComment->getIsDeleted() == false;
         });
     }
 
@@ -201,7 +189,7 @@ class Ticket
     public function getNoDeletetReactions(): Collection
     {
         return $this->getReactions()->filter(function(Reaction $reaction) {
-            return $reaction->getIsDelete() == false;
+            return $reaction->getIsDeleted() == false;
         });
     }
 

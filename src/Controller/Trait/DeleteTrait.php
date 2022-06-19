@@ -11,7 +11,7 @@ use App\Entity\Category;
 Trait DeleteTrait
 {
     private function deleteReaction(EntityManagerInterface $entityManager, Reaction $reaction){
-        $reaction->setIsDelete(true);
+        $reaction->setIsDeleted(true);
         $reaction->setUpdatedAt();
         
         $entityManager->persist($reaction);
@@ -19,7 +19,7 @@ Trait DeleteTrait
     }
 
     private function deleteTicketComment(EntityManagerInterface $entityManager, TicketComment $ticketComment){
-        $ticketComment->setIsDelete(true);
+        $ticketComment->setIsDeleted(true);
         $ticketComment->setUpdatedAt();
 
         $entityManager->persist($ticketComment);
@@ -27,7 +27,7 @@ Trait DeleteTrait
     }
 
     private function deleteTicket(EntityManagerInterface $entityManager, Ticket $ticket){
-        $ticket->setIsDelete(true);
+        $ticket->setIsDeleted(true);
         $ticket->setUpdatedAt();
         $entityManager->persist($ticket);
         $entityManager->flush();

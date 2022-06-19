@@ -21,7 +21,7 @@ class TicketCommentController extends AbstractController
             return $response;
         }
 
-        $ticketComment->setIsDelete(true);
+        $ticketComment->setIsDeleted(true);
         $ticketComment->setUpdatedAt();
 
         $entityManager->persist($ticketComment);

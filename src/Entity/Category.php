@@ -6,6 +6,7 @@ use App\Entity\Ticket;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Entity\Trait\UpdatedAtTrait;
 use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\IsDeletedTrait;
 use App\Entity\Trait\SlugTrait;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,6 +20,7 @@ class Category
     use UpdatedAtTrait;
     use CreatedAtTrait;
     use SlugTrait;
+    use IsDeletedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,9 +39,6 @@ class Category
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Ticket::class, orphanRemoval: true)]
     private $tickets;
-
-    #[ORM\Column(type: 'boolean')]
-    private $is_deleted;
 
     public function getId(): ?int
     {
@@ -147,18 +146,6 @@ class Category
                 $ticket->setCategory(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getIsDeleted(): ?bool
-    {
-        return $this->is_deleted;
-    }
-
-    public function setIsDeleted(bool $is_deleted): self
-    {
-        $this->is_deleted = $is_deleted;
 
         return $this;
     }

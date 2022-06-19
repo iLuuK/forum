@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use UpdatedAtTrait;
     use CreatedAtTrait;
     use SlugTrait;
-
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -321,7 +321,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getNoDeletedTicketComments(): Collection
     {
         return $this->getTicketComments()->filter(function(TicketComment $ticketComment) {
-            return $ticketComment->getIsDelete() == false;
+            return $ticketComment->getIsDeleted() == false;
         });
     }
 
@@ -358,7 +358,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getNoDeletedTicketReactions(): Collection
     {
         return $this->getReactions()->filter(function(Reaction $reaction) {
-            return $reaction->getIsDelete() == false;
+            return $reaction->getIsDeleted() == false;
         });
     }
 

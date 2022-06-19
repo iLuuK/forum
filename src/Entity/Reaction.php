@@ -6,12 +6,14 @@ use App\Repository\ReactionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Trait\CreatedAtTrait;
 use App\Entity\Trait\UpdatedAtTrait;
+use App\Entity\Trait\IsDeletedTrait;
 
 #[ORM\Entity(repositoryClass: ReactionRepository::class)]
 class Reaction
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
+    use IsDeletedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,14 +29,11 @@ class Reaction
     #[ORM\Column(type: 'boolean')]
     private $isLike;
 
-    #[ORM\Column(type: 'boolean')]
-    private $is_delete;
-
     public function __construct()
     {
         $this->setCreatedAt();
         $this->setUpdatedAt();
-        $this->setIsDelete(false);
+        $this->setIsDeleted(false);
     }
 
     public function getId(): ?int
@@ -74,18 +73,6 @@ class Reaction
     public function setIsLike(bool $isLike): self
     {
         $this->isLike = $isLike;
-
-        return $this;
-    }
-
-    public function getIsDelete(): ?bool
-    {
-        return $this->is_delete;
-    }
-
-    public function setIsDelete(bool $is_delete): self
-    {
-        $this->is_delete = $is_delete;
 
         return $this;
     }
