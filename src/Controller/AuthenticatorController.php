@@ -15,7 +15,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route(path: '/authentification/', name: 'authentication-')]
+#[Route(path: '/authentification', name: 'authentication-')]
 class AuthenticatorController extends AbstractController
 {
     #[Route(path: '/login', name: 'login')]
