@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,6 +15,7 @@ class CategoryFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $actualSlug = $builder->getData()->getSlug();
         $builder
             ->add('title', TextType::class, [
                 'attr' => [
@@ -37,6 +39,11 @@ class CategoryFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-select mb-3',
                 ],
+                'query_builder' => function (CategoryRepository $Cr) use ($actualSlug) {
+                    return $Cr->createQueryBuilder('c')
+                        ->where('c.slug != :slug')
+                        ->setParameter('slug', $actualSlug);
+                },
                 'label' => 'Parent : '
             ])
         ;
