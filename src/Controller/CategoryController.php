@@ -11,12 +11,14 @@ use App\Form\CategoryFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Trait\RoleTrait;
+use App\Controller\Trait\DeleteTrait;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/category', name: 'category-')]
 class CategoryController extends AbstractController
 {
     use RoleTrait;
+    use DeleteTrait;
 
     #[Route('/', name: 'main')]
     public function index(CategoryRepository $categoryRepository): Response
@@ -25,7 +27,7 @@ class CategoryController extends AbstractController
             return $response;
         }
         return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findByNoParent(0)
+            'categories' => $categoryRepository->findByNoParent()
         ]);
     }
 
@@ -74,5 +76,18 @@ class CategoryController extends AbstractController
         return $this->render('category/edit.html.twig', [
             'categoryForm' => $form->createView()
         ]);
+    }
+
+    
+    #[Route('/{slug}/delete', name: 'delete')]
+    public function delete(EntityManagerInterface $entityManager, Category $category): Response
+    {
+        if ($response = $this->checkRole('ROLE_ADMINISTRATOR')) {
+            return $response;
+        }
+
+        $this->deleteCategory($entityManager, $category);
+
+        return $this->redirectToRoute('category-main');
     }
 }

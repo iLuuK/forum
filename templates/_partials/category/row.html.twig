@@ -1,16 +1,23 @@
-<li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-    <a class="text-dark text-decoration-none" href="{{ path('ticket-category', {slug: category.getSlug()}) }}">
-        {% if category.hasParent() %}
-            <span>{{category.getParent().getTitle()}} -> </span>
-        {% endif %}
-        <span class="fw-bold">{{category.getTitle()}}</span>
-        <span class="badge bg-primary rounded-pill">{{category.getTicketCount()}}</span>        
-    </a>
-    {% if is_granted('ROLE_ADMINISTRATOR') %}
-        <a href="{{ path('category-edit', {slug: category.getSlug()}) }}" class="btn btn-primary" tabindex="-1" role="button">Modifier</a>
-    {% endif %}
-</li>
-{% for child in category.categories %}
-    {% include '_partials/category/row.html.twig' with { category: child } only %}
-{% endfor %}
+{% if category.getIsDeleted() == false %}
+    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <a class="text-dark text-decoration-none" href="{{ path('ticket-category', {slug: category.getSlug()}) }}">
+            {% if category.hasParent() %}
+                <span>{{category.getParent().getTitle()}} -> </span>
+            {% endif %}
+            <span class="fw-bold">{{category.getTitle()}}</span>
+            <span class="badge bg-primary rounded-pill">{{category.getTicketCount()}}</span>        
+        </a>
+        <div>
+            {% if is_granted('ROLE_ADMINISTRATOR') %}
+                {% if category.hasChildren() == false %}
+                    <a href="{{ path('category-delete', {slug: category.getSlug()}) }}" class="btn btn-danger" tabindex="-1" role="button">Supprimer</a>
+                {% endif %}
+                <a href="{{ path('category-edit', {slug: category.getSlug()}) }}" class="btn btn-primary" tabindex="-1" role="button">Modifier</a>
+            {% endif %}
+        </div>
+    </li>
+    {% for child in category.categories %}
+        {% include '_partials/category/row.html.twig' with { category: child } only %}
+    {% endfor %}
+{% endif %}
 

@@ -43,17 +43,8 @@ class CategoryRepository extends ServiceEntityRepository
    {
        return $this->createQueryBuilder('c')
            ->andWhere('c.parent is NULL')
-           ->orderBy('c.id', 'ASC')
-           ->getQuery()
-           ->getResult()
-       ;
-   }
-
-   public function findByParent($value): array
-   {
-       return $this->createQueryBuilder('c')
-           ->andWhere('c.parent = :val')
-           ->setParameter('val', $value)
+           ->andWhere('c.is_deleted = :val')
+           ->setParameter('val', false)
            ->orderBy('c.id', 'ASC')
            ->getQuery()
            ->getResult()

@@ -55,6 +55,8 @@ class TicketRepository extends ServiceEntityRepository
        return $this->createQueryBuilder('t')
            ->andWhere('t.category = :val')
            ->setParameter('val', $value)
+           ->andWhere('t.is_delete = :val2')
+           ->setParameter('val2', false)
            ->orderBy('t.updated_at', 'DESC')
            ->getQuery()
            ->getResult();

@@ -38,6 +38,9 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Ticket::class, orphanRemoval: true)]
     private $tickets;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_deleted;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,7 @@ class Category
     {
         $this->setUpdatedAt();
         $this->setCreatedAt();
+        $this->setIsDeleted(false);
         $this->categories = new ArrayCollection();
         $this->tickets = new ArrayCollection();
     }
@@ -89,6 +93,10 @@ class Category
     public function getCategories(): Collection
     {
         return $this->categories;
+    }
+
+    public function hasChildren(): bool{
+        return $this->categories->count() > 0;
     }
 
     public function addCategory(self $category): self
@@ -139,6 +147,18 @@ class Category
                 $ticket->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setIsDeleted(bool $is_deleted): self
+    {
+        $this->is_deleted = $is_deleted;
 
         return $this;
     }
