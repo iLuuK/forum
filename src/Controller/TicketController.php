@@ -98,10 +98,35 @@ class TicketController extends AbstractController
 
         $ticketCommentWithoutClosed = $ticket->getNotClosedTicketComments();
 
+        $reactions = $ticket->getReactions();
+        $userHasLike = false;
+        $userHasDislike = false;
+        $numberLike = 0;
+        $numberDislike = 0;
+        foreach ($reactions as &$reaction) {
+            if($reaction->getUser()->getId() == $user->getId()){
+                if($reaction->getIsLike()){
+                    $userHasLike = true;
+                }else{
+                    $userHasDislike = true;
+                }
+            }
+            if($reaction->getIsLike()){
+                $numberLike++;
+            }else{
+                $numberDislike++;
+            }
+        }
+
         return $this->render('ticket/detail.html.twig', [
             'ticket' => $ticket,
             'ticketCommentWithoutClosed' => $ticketCommentWithoutClosed,
             'user' => $user,
+            'reactions' => $ticket->getReactions(),
+            'userHasLike' => $userHasLike,
+            'userHasDislike' => $userHasDislike,
+            'numberLike' => $numberLike,
+            'numberDislike' => $numberDislike,
             'ticketCommentForm' => $form->createView()
         ]);
     }

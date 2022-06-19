@@ -59,7 +59,7 @@ class Reaction
         return $this;
     }
 
-    public function isIsLike(): ?bool
+    public function getIsLike(): ?bool
     {
         return $this->isLike;
     }

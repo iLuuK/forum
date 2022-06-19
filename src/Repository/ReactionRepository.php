@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Reaction;
+use App\Entity\User;
+use App\Entity\Ticket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,13 +56,13 @@ class ReactionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Reaction
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findSame(User $user, Ticket $ticket): ?Reaction
+   {
+       return $this->createQueryBuilder('r')
+            ->andWhere("r.user = " . $user->getId())
+            ->andWhere("r.ticket = " . $ticket->getId())
+            ->getQuery()
+            ->getOneOrNullResult()
+       ;
+   }
 }

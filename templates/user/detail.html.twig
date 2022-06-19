@@ -10,4 +10,14 @@
     {% for ticketComment in ticketComments %}
         {% include '_partials/ticketComment/row.html.twig' with { ticketComment: ticketComment, ticketSlug: ticketComment.getTicket().getSlug() } only %}
     {% endfor %}
+    {% if reactions.count() > 0 %}
+        <h4 class='my-3'>A réagit aux tickets :</h4>
+        <div class="list-group">
+            {% for reaction in reactions %}
+                {% include '_partials/user/reaction.html.twig' with { reaction: reaction } only %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <h4 class='my-3'>N'a aimé aucun ticket...</h4>
+    {% endif %}
 {% endblock %}

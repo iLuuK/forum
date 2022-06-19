@@ -14,8 +14,6 @@ class TicketCommentController extends AbstractController
 {
     use RoleTrait;
 
-
-
     #[Route('/{id}/delete', name: 'delete')]
     public function close(EntityManagerInterface $entityManager, TicketComment $ticketComment): Response
     {

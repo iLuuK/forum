@@ -1,0 +1,6 @@
+{% if reaction.getIsLike %}
+    <a href="{{ path('ticket-detail', {slug: reaction.getTicket().getSlug()}) }}" class="list-group-item list-group-item-action"><strong>{{reaction.getTicket().getTitle()}}</strong> a aimé !</a>
+{% else %}
+    <a href="{{ path('ticket-detail', {slug: reaction.getTicket().getSlug()}) }}" class="list-group-item list-group-item-action"><strong>{{reaction.getTicket().getTitle()}}</strong> n'a pas aimé !</a>
+{% endif %}
+

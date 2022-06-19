@@ -151,6 +151,7 @@ class UserController extends AbstractController
 
         return $this->render('user/detail.html.twig', [
             'user' => $user,
+            'reactions' =>$user->getReactions(),
             'ticketComments' => $notClosedTicketComments
         ]);
     }
