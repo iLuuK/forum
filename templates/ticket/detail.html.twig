@@ -40,10 +40,10 @@
             {% endif %}
         </div>
 
-        {% if ticketCommentWithoutClosed.count() > 0 %}
+        {% if ticketCommentsWithoutDelete.count() > 0 %}
             <h4 class="my-4">Les commentaires :</h4>
         {% endif %}
-        {% for ticketComment in ticketCommentWithoutClosed %}
+        {% for ticketComment in ticketCommentsWithoutDelete %}
             {% include '_partials/ticketComment/row.html.twig' with { ticketComment: ticketComment } only %}
         {% endfor %}
         {% if ticket.getIsClose() == false %}

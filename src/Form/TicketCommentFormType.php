@@ -22,7 +22,7 @@ class TicketCommentFormType extends AbstractType
                 'trim' => true,
                 'constraints' => [
                     new Length([
-                        'min' => 5,
+                        'min' => 3,
                         'minMessage' => 'Le champs doit comporter 5 caractères minimum'
                     ]),
                 ],

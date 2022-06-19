@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}user.getFullName(){% endblock %}
+{% block title %}{{user.getFullName()}}{% endblock %}
 
 {% block body %}
     <h1 class="my-3">{{user.getFullName()}}</h1>

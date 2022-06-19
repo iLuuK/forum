@@ -40,8 +40,6 @@ class UserFormType extends AbstractType
             'trim' => true,
             'constraints' => [
                 new Length([
-                    'min' => 5,
-                    'minMessage' => 'Le champs doit comporter 5 caractères minimum',
                     'max' => 100,
                     'maxMessage' => 'Le champs doit comporter 100 caractères maximum',
                 ]),
@@ -55,8 +53,6 @@ class UserFormType extends AbstractType
             'trim' => true,
             'constraints' => [
                 new Length([
-                    'min' => 5,
-                    'minMessage' => 'Le champs doit comporter 5 caractères minimum',
                     'max' => 100,
                     'maxMessage' => 'Le champs doit comporter 100 caractères maximum',
                 ]),
@@ -69,8 +65,6 @@ class UserFormType extends AbstractType
             'label' => 'Votre addresse (numéro et nom de rue) : ',
             'constraints' => [
                 new Length([
-                    'min' => 5,
-                    'minMessage' => 'Le champs doit comporter 5 caractères minimum',
                     'max' => 255,
                     'maxMessage' => 'Le champs doit comporter 255 caractères maximum',
                 ]),

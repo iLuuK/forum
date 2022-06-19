@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\Category;
 use App\Entity\User;
+use App\Entity\Reaction;
 use App\Controller\Trait\RoleTrait;
 use App\Repository\TicketRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -96,7 +97,8 @@ class TicketController extends AbstractController
             return $this->redirectToRoute('ticket-detail', ['slug' => $ticket->getSlug()]);
         }
 
-        $ticketCommentWithoutClosed = $ticket->getNotClosedTicketComments();
+        $ticketCommentsWithoutDelete = $ticket->getNoDeleteTicketComments();
+        $reactionsWithoutDelete = $ticket->getNoDeletetReactions();
 
         $reactions = $ticket->getReactions();
         $userHasLike = false;
@@ -120,9 +122,9 @@ class TicketController extends AbstractController
 
         return $this->render('ticket/detail.html.twig', [
             'ticket' => $ticket,
-            'ticketCommentWithoutClosed' => $ticketCommentWithoutClosed,
+            'ticketCommentsWithoutDelete' => $ticketCommentsWithoutDelete,
             'user' => $user,
-            'reactions' => $ticket->getReactions(),
+            'reactions' => $reactionsWithoutDelete,
             'userHasLike' => $userHasLike,
             'userHasDislike' => $userHasDislike,
             'numberLike' => $numberLike,
@@ -143,7 +145,30 @@ class TicketController extends AbstractController
         $entityManager->persist($ticket);
         $entityManager->flush();
 
+        foreach ($ticket->getTicketComments()->toArray() as $ticketComment) {
+            $this->deleteTicketComment($entityManager, $ticketComment);
+        }
+        foreach ($ticket->getReactions()->toArray() as $reaction) {
+            $this->deleteReaction($entityManager, $reaction);
+        }
+
         return $this->redirectToRoute('ticket-main');
+    }
+
+    private function deleteReaction(EntityManagerInterface $entityManager, Reaction $reaction){
+        $reaction->setIsDelete(true);
+        $reaction->setUpdatedAt();
+        
+        $entityManager->persist($reaction);
+        $entityManager->flush();
+    }
+
+    private function deleteTicketComment(EntityManagerInterface $entityManager, TicketComment $ticketComment){
+        $ticketComment->setIsDelete(true);
+        $ticketComment->setUpdatedAt();
+
+        $entityManager->persist($ticketComment);
+        $entityManager->flush();
     }
 
     #[Route('/{slug}/close', name: 'close')]

@@ -157,15 +157,15 @@ class Ticket
         return $this->ticketComments;
     }
 
-    public function getNotClosedTicketComments(): Collection
+    public function getNoDeleteTicketComments(): Collection
     {
         return $this->getTicketComments()->filter(function(TicketComment $ticketComment) {
             return $ticketComment->getIsDelete() == false;
         });
     }
 
-    public function getNotClosedTicketCommentsCount(): int{
-        return $this->getNotClosedTicketComments()->count();
+    public function getNoDeletedTicketCommentsCount(): int{
+        return $this->getNoDeleteTicketComments()->count();
     }
 
     public function addTicketComment(TicketComment $ticketComment): self
@@ -196,6 +196,13 @@ class Ticket
     public function getReactions(): Collection
     {
         return $this->reactions;
+    }
+
+    public function getNoDeletetReactions(): Collection
+    {
+        return $this->getReactions()->filter(function(Reaction $reaction) {
+            return $reaction->getIsDelete() == false;
+        });
     }
 
     public function addReaction(Reaction $reaction): self

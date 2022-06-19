@@ -147,12 +147,13 @@ class UserController extends AbstractController
             return $response;
         }
 
-        $notClosedTicketComments = $user->getNotClosedTicketComments();
+        $noDeletedTicketComments = $user->getNoDeletedTicketComments();
+        $noDeletedReactions = $user->getNoDeletedTicketReactions();
 
         return $this->render('user/detail.html.twig', [
             'user' => $user,
-            'reactions' =>$user->getReactions(),
-            'ticketComments' => $notClosedTicketComments
+            'reactions' => $noDeletedReactions,
+            'ticketComments' => $noDeletedTicketComments
         ]);
     }
 }

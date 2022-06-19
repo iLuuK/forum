@@ -318,7 +318,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->ticketComments;
     }
 
-    public function getNotClosedTicketComments(): Collection
+    public function getNoDeletedTicketComments(): Collection
     {
         return $this->getTicketComments()->filter(function(TicketComment $ticketComment) {
             return $ticketComment->getIsDelete() == false;
@@ -353,6 +353,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getReactions(): Collection
     {
         return $this->reactions;
+    }
+
+    public function getNoDeletedTicketReactions(): Collection
+    {
+        return $this->getReactions()->filter(function(Reaction $reaction) {
+            return $reaction->getIsDelete() == false;
+        });
     }
 
     public function addReaction(Reaction $reaction): self
