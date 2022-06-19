@@ -25,6 +25,7 @@ class RegistrationFormType extends AbstractType
                     'class' => 'form-control mb-3',
                 ],
                 'label' => 'Pseudo : ',
+                'trim' => true,
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -39,6 +40,7 @@ class RegistrationFormType extends AbstractType
                     'class' => 'form-control mb-3',
                 ],
                 'label' => 'Prénom : ',
+                'trim' => true,
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -53,6 +55,7 @@ class RegistrationFormType extends AbstractType
                     'class' => 'form-control mb-3',
                 ],
                 'label' => 'Nom : ',
+                'trim' => true,
                 'constraints' => [
                     new Length([
                         'min' => 5,
@@ -108,14 +111,15 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
+                'trim' => true,
                 'label' => 'E-mail : '
-                
             ])
             ->add('phone_number', TextType::class, [
                 'attr' => [
                     'class' => 'form-control mb-3',
                 ],
                 'label' => 'Numéro téléphone (10 chiffres) : ',
+                'trim' => true,
                 'constraints' => [
                     new Length([
                         'min' => 10,

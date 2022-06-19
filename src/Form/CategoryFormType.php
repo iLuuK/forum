@@ -20,6 +20,7 @@ class CategoryFormType extends AbstractType
                     'class' => 'form-control mb-3',
                 ],
                 'label' => 'Titre : ',
+                'trim' => true,
                 'constraints' => [
                     new Length([
                         'min' => 5,

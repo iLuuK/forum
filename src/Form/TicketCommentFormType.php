@@ -19,6 +19,7 @@ class TicketCommentFormType extends AbstractType
                     'class' => 'form-control mb-3',
                 ],
                 'label' => 'Contenu : ',
+                'trim' => true,
                 'constraints' => [
                     new Length([
                         'min' => 5,

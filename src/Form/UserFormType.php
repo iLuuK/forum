@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Helper\FormHelper;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -18,14 +19,25 @@ class UserFormType extends AbstractType
         ->add('username', TextType::class, [
             'attr' => [
                 'class' => 'form-control mb-3',
+                'pattern' => FormHelper::$regexAlphaNum
             ],
-            'label' => 'Pseudo : '
+            'trim' => true,
+            'label' => 'Pseudo : ',
+            'constraints' => [
+                new Length([
+                    'min' => 5,
+                    'minMessage' => 'Le champs doit comporter 5 caractères minimum',
+                    'max' => 100,
+                    'maxMessage' => 'Le champs doit comporter 100 caractères maximum',
+                ]),
+            ],
         ])
         ->add('firstname', TextType::class, [
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
             'label' => 'Prénom',
+            'trim' => true,
             'constraints' => [
                 new Length([
                     'min' => 5,
@@ -40,6 +52,7 @@ class UserFormType extends AbstractType
                 'class' => 'form-control mb-3',
             ],
             'label' => 'Nom : ',
+            'trim' => true,
             'constraints' => [
                 new Length([
                     'min' => 5,
@@ -95,6 +108,7 @@ class UserFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control mb-3',
             ],
+            'trim' => true,
             'label' => 'E-mail : '
             
         ])
@@ -103,6 +117,7 @@ class UserFormType extends AbstractType
                 'class' => 'form-control mb-3',
             ],
             'label' => 'Numéro téléphone (10 chiffres) : ',
+            'trim' => true,
             'constraints' => [
                 new Length([
                     'min' => 10,
