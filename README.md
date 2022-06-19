@@ -9,9 +9,9 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
 1. Avoir un php 8.1 et une base de donnée : [Installer XAMPP qui s'occupera d'installer PHP 8.1 et une base de donnée MariaDB](https://www.apachefriends.org/fr/index.html )
 2. Installer composer
     1. Télécharger l'exécutable [depuis ce lien](https://getcomposer.org/download/)
-    2. Vérifier si la variable d'environnement s'est bien ajouté
+    2. Vérifier si la variable d'environnement s'est bien ajoutée
 3. Installer Symfony CLI avec l'un des choix disponible [ici](https://symfony.com/download)
-    1. Vérifier si la variable d'environnement s'est bien ajouté
+    1. Vérifier si la variable d'environnement s'est bien ajoutée
 4. Vérifier si l'installation est bonne avec cette commande `symfony check:requirements`
 5. Si une erreur apparaît suivez les instructions pour la corriger
 6. Pour plus de détails consultez la document technique de Symfony [ici](https://symfony.com/doc/current/setup.html)
@@ -26,7 +26,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
 6. Puis de la même façon cette commande `php bin/console doctrine:database:create` pour créer la base de donnée que vous avez configuré précédemment.
 7. Continuez avec cette commande `php bin/console doctrine:migrations:migrate` pour lancer les migrations des entités.
     1. Répondez "yes" à la question
-8. Puis `php bin/console doctrine:fixtures:load` pour ajouter à votre base de donné des informations générés aléatoirement
+8. Puis `php bin/console doctrine:fixtures:load` pour ajouter à votre base de donnée des informations générées aléatoirement
 9. Enfin vous pouvez avec cette commande lancer le projet `symfony server:start`
     1. Des informations vont s'afficher dans le terminal, et un lien s'affichera sur fond vert.
     
@@ -58,10 +58,10 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
     2. Cliquez sur une catégorie
     3. Une liste s'affiche avec la liste de tous les tickets qui sont dans la catégorie choisie.
     4. Vous pouvez réeffectuer les actions du point "3."
-5. Cliquez sur "Ajouter un ticket" en haut à gauche pour ajoute un nouveau ticket
+5. Cliquez sur "Ajouter un ticket" en haut à gauche pour ajouter un nouveau ticket
     1. Remplissez le titre et le contenu et choisissez une catégorie
     2. Cliquez sur "Ajoutez"
-    3. Vous êtes rediriger vers votre nouveau ticket.
+    3. Vous êtes redirigé vers votre nouveau ticket.
     4. Vous avez en haut un nouveau bouton qui vous permets de clôturer le ticket
         1. Une fois cliquez ce ticket sera toujours visible
         2. Plus personne ne pourra y donner une réaction
@@ -82,7 +82,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
     2. Cliquez sur "Connecter
 2. Les mêmes actions qu'un utilisateur sont disponibles
 3. Cliquez sur "Liste utilisateurs" en haut à gauche
-    1. Les informations de chaque utilisateur y sont affichés
+    1. Les informations de chaque utilisateur y sont affichées
     2. En fonctions des états des utilisateurs 3 boutons sont disponibles
         1. "Voir détail" pour afficher la page avec les intéractions d'un utilisateur
         2. "Clôturer" pour fermer définitvement le compte d'un utilisateur
