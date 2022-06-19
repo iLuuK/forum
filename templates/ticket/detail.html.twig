@@ -15,15 +15,28 @@
         <small>{{ticket.getCategory().getTitle()}}</small>
         <p class="my-3">{{ticket.getContent()}}</p>
         <div class="d-flex justify-content-between">
-            {% if userHasDislike == false and userHasLike == false %}
-                <a href="{{ path('reaction-dislike', {slug: ticket.getSlug()}) }}" class="btn btn-warning my-3" tabindex="-1" role="button">Je n'aime pas avec les {{numberDislike}} autre(s) !</a>
-                <a href="{{ path('reaction-like', {slug: ticket.getSlug()}) }}" class="btn btn-success my-3" tabindex="-1" role="button">J'aime avec les {{numberLike}} autre(s) !</a>
-            {% elseif userHasDislike == true %}
-                <a href="" class="btn btn-warning my-3 disabled" tabindex="-1" role="button" aria-disabled="true">Vous n'aimez pas avec {{numberDislike - 1}} autre(s) !</a>
-                <a href="" class="btn btn-success my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberLike}} ont aimé !</a>
+            {% if ticket.getIsClose() == false %}
+                {% if userHasDislike == false and userHasLike == false %}
+                    <a href="{{ path('reaction-dislike', {slug: ticket.getSlug()}) }}" class="btn btn-warning my-3" tabindex="-1" role="button">Je n'aime pas avec les {{numberDislike}} autre(s) !</a>
+                    <a href="{{ path('reaction-like', {slug: ticket.getSlug()}) }}" class="btn btn-success my-3" tabindex="-1" role="button">J'aime avec les {{numberLike}} autre(s) !</a>
+                {% elseif userHasDislike %}
+                    <a href="" class="btn btn-warning my-3 disabled" tabindex="-1" role="button" aria-disabled="true">Vous n'aimez pas avec {{numberDislike - 1}} autre(s) !</a>
+                    <a href="" class="btn btn-success my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberLike}} ont aimé !</a>
+                {% else %}
+                    <a href="" class="btn btn-warning my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberDislike}} n'ont pas aimé !</a>
+                    <a href="" class="btn btn-success my-3 disabled" tabindex="-1" role="button" aria-disabled="true">Vous aimez avec {{numberLike - 1}} autre(s) !</a>
+                {% endif %}
             {% else %}
-                <a href="" class="btn btn-warning my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberDislike}} n'ont pas aimé !</a>
-                <a href="" class="btn btn-success my-3 disabled" tabindex="-1" role="button" aria-disabled="true">Vous aimez avec {{numberLike - 1}} autre(s) !</a>
+                {% if userHasDislike %}
+                    <a href="" class="btn btn-warning my-3 disabled" tabindex="-1" role="button" aria-disabled="true">Vous n'aimez pas avec {{numberDislike - 1}} autre(s) !</a>
+                    <a href="" class="btn btn-success my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberLike}} ont aimé !</a>
+                {% elseif userHasLike %}
+                    <a href="" class="btn btn-warning my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberDislike}} n'ont pas aimé !</a>
+                    <a href="" class="btn btn-success my-3 disabled" tabindex="-1" role="button" aria-disabled="true">Vous aimez avec {{numberLike - 1}} autre(s) !</a>
+                {% else %}
+                    <a href="" class="btn btn-warning my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberDislike}} n'ont pas aimé !</a>
+                    <a href="" class="btn btn-success my-3 disabled" tabindex="-1" role="button" aria-disabled="true">{{numberLike}} ont aimé !</a>
+                {% endif %}
             {% endif %}
         </div>
 
