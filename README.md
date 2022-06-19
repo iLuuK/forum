@@ -60,7 +60,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
     2. Cliquez sur "Ajoutez"
     3. Vous êtes rediriger vers votre nouveau ticket.
     4. Vous avez en haut un nouveau bouton qui vous permets de clôturer le ticket
-        1. Une fois cliqué ce ticket sera toujours visible
+        1. Une fois cliquez ce ticket sera toujours visible
         2. Plus personne ne pourra y donner une réaction
         3. Plus personne ne pourras y ajouter un commentaire
 6. Cliquez sur "Mes intéractions" en haut à droite pour voir vos actions
@@ -70,3 +70,36 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
 7. Cliquez sur Cliquez sur "Mon compte" en haut à droite
     1. Cliquez sur "Supprimer mon compte"
         1. Si vous tentez de vous reconnecter un message vous indiquera que votre compte est clôturé.
+
+
+### Administrateur
+
+1. Cliquez sur "Se connecter" en haut à droite
+    1. Information de connexion : pseudo -> **admin** et mot de passe -> **admin**
+    2. Cliquez sur "Connecter
+2. Les mêmes actions qu'un utilisateur sont disponible
+3. Cliquez sur "Liste utilisateurs" en haut à gauche
+    1. Les informations de chaque utilisateur y sont affichés
+    2. En fonctions des états des utilisateurs 3 boutons sont disponibles
+        1. "Voir détail" pour afficher la page avec les intéractions d'un utilisateur
+        2. "Clôturer" pour fermer définitvement le compte d'un utilisateur
+            1. A sa connexion un message apparaitra
+        3. "Bannir"/"Débannir" pour bloqué temporairement un utilisateur
+            1. A sa connexion un message apparaitra
+        4. Ces boutons ne fonctionnent pas sur l'administrateur connecté
+4. Cliquez sur "Catégories" en haut à gauche pour afficher les catégories
+    1. Cliquez sur "Ajouter" pour ajouter une catégorie
+        1. Comme pour tous les formulaires des contraintes existent
+    2. Cliquez sur "Modifier" pour modifier une catégorie
+        1. Comme pour tous les formulaires des contraintes existent
+        2. Dans la liste des parents disponible la catégorie qui est modifé n'est pas affiché pour pas avoir de relation entre elle même.
+    2. Cliquez sur "Supprimez" pour supprimer une catégorie.
+5. Allez sur un ticket avec des commentaires
+    1. Il est possible de supprimer un ticket
+        1. Plus personne ne verra le ticket et les commentaires associés
+    2. Il est possible de clôturer un ticket
+        Une fois cliquez ce ticket sera toujours visible
+        Plus personne ne pourra y donner une réaction
+        Plus personne ne pourra y ajouter un commentaire
+    3. Il est possible de supprimer un commentaire
+        1. Plus personne ne pourra le voir
