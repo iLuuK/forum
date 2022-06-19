@@ -2,6 +2,8 @@
  
 Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
 
+## [Process.md](https://github.com/iLuuK/forum/blob/develop/process.md)
+
 ## Les prérequis
 
 1. Avoir un php 8.1 et une base de donnée : [Installer XAMPP qui s'occupera d'installer PHP 8.1 et une base de donnée MariaDB](https://www.apachefriends.org/fr/index.html )
