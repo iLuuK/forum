@@ -9,6 +9,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
     1. Télécharger l'exécutable [depuis ce lien](https://getcomposer.org/download/)
     2. Vérifier si la variable d'environnement s'est bien ajouté
 3. Installer Symfony CLI avec l'un des choix disponible [ici](https://symfony.com/download)
+    1. Vérifier si la variable d'environnement s'est bien ajouté
 4. Vérifier si l'installation est bonne avec cette commande `symfony check:requirements`
 5. Si une erreur apparaît suivez les instructions pour la corriger
 6. Pour plus de détails consultez la document technique de Symfony [ici](https://symfony.com/doc/current/setup.html)
@@ -20,7 +21,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
 3. A la raçine du dossier il existe un fichier ".env", recopiez le en le renommant "env.local" pour configurer votre base de donnée locale.
 4. Modifier la ligne lié aux informations de votre base de donnée avec vos données disponible sur le PHPMyAdmin lancé avec XAMPP
 5. En ouvrant un terminal à la raçine du projet exécutez cette commande `composer install` pour installer les packages nécessaires.
-6. Puis de la même façon cette commande `php bin/console doctrine:database:create` pour créer la base de donnée que vous avez configurez précédemment.
+6. Puis de la même façon cette commande `php bin/console doctrine:database:create` pour créer la base de donnée que vous avez configuré précédemment.
 7. Continuez avec cette commande `php bin/console doctrine:migrations:migrate` pour lancer les migrations des entités.
     1. Répondez "yes" à la question
 8. Puis `php bin/console doctrine:fixtures:load` pour ajouter à votre base de donné des informations générés aléatoirement
@@ -77,7 +78,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
 1. Cliquez sur "Se connecter" en haut à droite
     1. Information de connexion : pseudo -> **admin** et mot de passe -> **admin**
     2. Cliquez sur "Connecter
-2. Les mêmes actions qu'un utilisateur sont disponible
+2. Les mêmes actions qu'un utilisateur sont disponibles
 3. Cliquez sur "Liste utilisateurs" en haut à gauche
     1. Les informations de chaque utilisateur y sont affichés
     2. En fonctions des états des utilisateurs 3 boutons sont disponibles
@@ -94,6 +95,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
         1. Comme pour tous les formulaires des contraintes existent
         2. Dans la liste des parents disponible la catégorie qui est modifé n'est pas affiché pour pas avoir de relation entre elle même.
     2. Cliquez sur "Supprimez" pour supprimer une catégorie.
+        1. Seulement celles sans enfant ou celles avec enfants supprimés peuvent l'être
 5. Allez sur un ticket avec des commentaires
     1. Il est possible de supprimer un ticket
         1. Plus personne ne verra le ticket et les commentaires associés
@@ -103,3 +105,12 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
         Plus personne ne pourra y ajouter un commentaire
     3. Il est possible de supprimer un commentaire
         1. Plus personne ne pourra le voir
+
+## Pense-bête
+
+1. Pour vérifier si symfony est bien installé : `symfony check:requirements`
+2. Pour installer les packages du projet : `composer install`
+3. Pour créér la base de donnée : `php bin/console doctrine:database:create`
+4. Pour faire la migration : `php bin/console doctrine:migrations:migrate`
+5. Pour générer des données aléatoires : `php bin/console doctrine:fixtures:load`
+6. Pour lancer le projet `symfony server:start`
