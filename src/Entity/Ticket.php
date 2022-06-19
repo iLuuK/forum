@@ -48,6 +48,9 @@ class Ticket
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: TicketComment::class)]
     private $ticketComments;
 
+    #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Reaction::class)]
+    private $reactions;
+
     public function __construct()
     {
         $this->setUpdatedAt();
@@ -55,6 +58,7 @@ class Ticket
         $this->setIsClose(false);
         $this->setIsDelete(false);
         $this->ticketComments = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +184,36 @@ class Ticket
             // set the owning side to null (unless already changed)
             if ($ticketComment->getTicket() === $this) {
                 $ticketComment->setTicket(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reaction>
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setTicket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getTicket() === $this) {
+                $reaction->setTicket(null);
             }
         }
 

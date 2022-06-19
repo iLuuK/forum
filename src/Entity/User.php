@@ -73,6 +73,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: TicketComment::class)]
     private $ticketComments;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reaction::class)]
+    private $reactions;
+
     public function __construct()
     {
         $this->setUpdatedAt();
@@ -81,6 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->is_close = false;
         $this->tickets = new ArrayCollection();
         $this->ticketComments = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -337,6 +341,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($ticketComment->getAuthor() === $this) {
                 $ticketComment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reaction>
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getUser() === $this) {
+                $reaction->setUser(null);
             }
         }
 
