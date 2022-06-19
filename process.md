@@ -2,13 +2,13 @@
 
 ## Commun
 
-1. **FormHelper** Qui contient une varaible regex static que j'utilise sur plusieurs formulaires
+1. **FormHelper** contient une variable regex static que j'utilise sur plusieurs formulaires
 2. **CreatedAtTrait** pour la date de création de mes entités
 3. **IsDeletedTrait** pour le paramètre is_deleted de mes entités
 4. **SlugTrait** pour le slug de mes entités
 5. **UpdatedAtTrait** pour la date de mise à jour de mes entités
 5. **RoleTrait** pour vérifier les roles dans mes controller
-6. **DeleteTrait** pour centraliser les functions de suppression d'entité qui sont appelé à différents endroits.
+6. **DeleteTrait** pour centraliser les fonctions de suppression d'entité qui sont appelés à différents endroits.
 
 ## Authentification utilisateur
 
@@ -29,7 +29,7 @@
 2. **CategoryFixtures** pour ajouter des données aléatoires de catégories
 3. **Category** class de catégorie
 4. **CategoryFormType** formulaire d'ajout de catégorie avec les contraintes sur les champs
-5. **CategoryRepository** pour faire les requêtes en base de donnée, ajout d'une function pour appeler les catégories sans parent.
+5. **CategoryRepository** pour faire les requêtes en base de donnée, ajout d'une fonction pour appeler les catégories sans parent.
 
 ## Ticket
 
