@@ -9,7 +9,7 @@
         </a>
         <div>
             {% if is_granted('ROLE_ADMINISTRATOR') %}
-                {% if category.hasChildren() == false %}
+                {% if category.hasChildrenNoDeleted() %}
                     <a href="{{ path('category-delete', {slug: category.getSlug()}) }}" class="btn btn-danger" tabindex="-1" role="button">Supprimer</a>
                 {% endif %}
                 <a href="{{ path('category-edit', {slug: category.getSlug()}) }}" class="btn btn-primary" tabindex="-1" role="button">Modifier</a>

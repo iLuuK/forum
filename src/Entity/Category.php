@@ -94,8 +94,15 @@ class Category
         return $this->categories;
     }
 
-    public function hasChildren(): bool{
-        return $this->categories->count() > 0;
+    public function hasChildrenNoDeleted(): bool{
+        $result = true;
+        /** @var Category $category */
+        foreach ($this->categories->toArray() as $category) {
+            if($category->getIsDeleted() == false){
+                $result = false;
+            }
+        }
+        return $result;
     }
 
     public function addCategory(self $category): self
