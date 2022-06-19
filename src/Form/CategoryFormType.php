@@ -40,9 +40,14 @@ class CategoryFormType extends AbstractType
                     'class' => 'form-select mb-3',
                 ],
                 'query_builder' => function (CategoryRepository $Cr) use ($actualSlug) {
+                    if($actualSlug == null){
+                        $actualSlug = "";
+                    }
                     return $Cr->createQueryBuilder('c')
                         ->where('c.slug != :slug')
-                        ->setParameter('slug', $actualSlug);
+                        ->setParameter('slug', $actualSlug)
+                        ->andWhere('c.is_deleted = :val')
+                        ->setParameter('val', 0);
                 },
                 'label' => 'Parent : '
             ])

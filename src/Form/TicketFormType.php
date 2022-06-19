@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\CategoryRepository;
 
 class TicketFormType extends AbstractType
 {
@@ -52,6 +53,11 @@ class TicketFormType extends AbstractType
             'attr' => [
                 'class' => 'form-select mb-3',
             ],
+            'query_builder' => function (CategoryRepository $Cr) {
+                return $Cr->createQueryBuilder('c')
+                    ->where('c.is_deleted = :val')
+                    ->setParameter('val', 0);
+            },
             'label' => 'Catégorie : '
         ])
     ;
