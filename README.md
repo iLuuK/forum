@@ -96,7 +96,7 @@ Dépôt GITHUB d'un projet en symfony pour le cours de **David PATIASHVILI**.
     2. Cliquez sur "Modifier" pour modifier une catégorie
         1. Comme pour tous les formulaires des contraintes existent
         2. Dans la liste des parents disponible la catégorie qui est modifé n'est pas affiché pour pas avoir de relation entre elle même.
-    2. Cliquez sur "Supprimez" pour supprimer une catégorie.
+    2. Cliquez sur "Supprimer" pour supprimer une catégorie.
         1. Seulement celles sans enfant ou celles avec enfants supprimés peuvent l'être
 5. Allez sur un ticket avec des commentaires
     1. Il est possible de supprimer un ticket
