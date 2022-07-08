@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -133,12 +134,10 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,            
                 'mapped' => false,
-                'attr' => [
-                    'autocomplete' => 'new-password',
-                    'class' => 'form-control'
-                ],
+                'options' => ['attr' => ['class' => 'form-control', 'autocomplete' => 'new-password']],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Entrez un mot de passe',
@@ -149,7 +148,9 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'Mot de passe : '
+                'first_options'  => ['label' => 'Mot de passe :'],
+                'second_options' => ['label' => 'Vérifier mot de passe'],
+                'invalid_message' => 'Les mots de passes ne correspondent pas'
             ])
         ;
     }
