@@ -47,6 +47,7 @@ class CategoryController extends AbstractController
             $category->setSlug($slug);
             $entityManager->persist($category);
             $entityManager->flush();
+            $this->addFlash('success', 'Catégorie ajouté !');
             return $this->redirectToRoute('category-main');
         }
 
@@ -70,6 +71,7 @@ class CategoryController extends AbstractController
             $category->setSlug($slug);
             $entityManager->persist($category);
             $entityManager->flush();
+            $this->addFlash('success', 'Catégorie modifié !');
             return $this->redirectToRoute('category-main');
         }
 
@@ -87,6 +89,7 @@ class CategoryController extends AbstractController
         }
 
         $this->deleteCategory($entityManager, $category);
+        $this->addFlash('success', 'Catégorie supprimé !');
 
         return $this->redirectToRoute('category-main');
     }

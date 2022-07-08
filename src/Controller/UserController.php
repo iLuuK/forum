@@ -45,6 +45,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'Informations modifié !');
         }
 
         if ($resetPasswordForm->isSubmitted() && $resetPasswordForm->isValid()) {
@@ -58,6 +59,7 @@ class UserController extends AbstractController
                 $user->setPassword($hashedPassword);
                 $entityManager->persist($user);
                 $entityManager->flush();
+                $this->addFlash('success', 'Mot de passe modifié !');
             }
 
          }

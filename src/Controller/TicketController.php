@@ -142,6 +142,7 @@ class TicketController extends AbstractController
         }
 
         $this->deleteTicket($entityManager, $ticket);
+        $this->addFlash('success', 'Ticket supprimé !');
 
         return $this->redirectToRoute('ticket-main');
     }
