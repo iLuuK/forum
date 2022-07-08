@@ -48,6 +48,7 @@ class AuthenticatorController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             )->computeSlug($slugger);
+            $user->setRoles(["ROLE_USER"]);
 
             $entityManager->persist($user);
             $entityManager->flush();
