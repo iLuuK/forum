@@ -5,13 +5,16 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Controller\Trait\RoleTrait;
+use App\Model\UpdatePassword;
 use App\Form\UserFormType;
+use App\Form\UpdatePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user', name: 'user-')]
 class UserController extends AbstractController
@@ -23,7 +26,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/', name: 'main')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         if ($response = $this->checkRole('ROLE_USER')) {
             return $response;
@@ -31,6 +34,10 @@ class UserController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $form = $this->createForm(UserFormType::class, $user);
+
+        $changePassword = new UpdatePassword();
+        $resetPasswordForm = $this->createForm(UpdatePasswordFormType::class, $changePassword);
+        $resetPasswordForm->handleRequest($request);
         $user->setUpdatedAt();
         $user->computeSlug($this->slugger);
         $form->handleRequest($request);
@@ -40,8 +47,24 @@ class UserController extends AbstractController
             $entityManager->flush();
         }
 
+        if ($resetPasswordForm->isSubmitted() && $resetPasswordForm->isValid()) {
+            if (!$userPasswordHasher->isPasswordValid($user, $changePassword->getOldPassword())) {
+                $this->addFlash('error', 'Le mot de passe actuel n\'est pas bon !');
+            }else{
+                $hashedPassword = $userPasswordHasher->hashPassword(
+                    $user,
+                    $changePassword->getNewPassword()
+                );
+                $user->setPassword($hashedPassword);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+
+         }
+
         return $this->render('user/index.html.twig', [
-            'userForm' => $form->createView()
+            'userForm' => $form->createView(),
+            'resetPasswordForm' => $resetPasswordForm->createView()
         ]);
     }
 
