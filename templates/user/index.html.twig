@@ -16,10 +16,10 @@
         {{ form_row(userForm.phone_number) }}
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
     {{ form_end(userForm) }}
-    {{ form_start(resetPasswordForm) }}
-        {{ form_row(resetPasswordForm.oldPassword) }}
-        {{ form_row(resetPasswordForm.newPassword) }}
+    {{ form_start(updatePasswordForm) }}
+        {{ form_row(updatePasswordForm.oldPassword) }}
+        {{ form_row(updatePasswordForm.newPassword) }}
         <button type="submit" class="btn btn-primary">Mettre à jour le mot de passe</button>
-    {{ form_end(resetPasswordForm) }}
+    {{ form_end(updatePasswordForm) }}
     <a href="{{ path('user-delete-me') }}" class="btn btn-danger btn-lg mt-5" tabindex="-1" role="button">Supprimer mon compte (définitif)</a>
 {% endblock %}

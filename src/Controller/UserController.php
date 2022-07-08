@@ -36,8 +36,8 @@ class UserController extends AbstractController
         $form = $this->createForm(UserFormType::class, $user);
 
         $changePassword = new UpdatePassword();
-        $resetPasswordForm = $this->createForm(UpdatePasswordFormType::class, $changePassword);
-        $resetPasswordForm->handleRequest($request);
+        $updatePasswordForm = $this->createForm(UpdatePasswordFormType::class, $changePassword);
+        $updatePasswordForm->handleRequest($request);
         $user->setUpdatedAt();
         $user->computeSlug($this->slugger);
         $form->handleRequest($request);
@@ -48,7 +48,7 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Informations modifié !');
         }
 
-        if ($resetPasswordForm->isSubmitted() && $resetPasswordForm->isValid()) {
+        if ($updatePasswordForm->isSubmitted() && $updatePasswordForm->isValid()) {
             if (!$userPasswordHasher->isPasswordValid($user, $changePassword->getOldPassword())) {
                 $this->addFlash('error', 'Le mot de passe actuel n\'est pas bon !');
             }else{
@@ -66,7 +66,7 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'userForm' => $form->createView(),
-            'resetPasswordForm' => $resetPasswordForm->createView()
+            'updatePasswordForm' => $updatePasswordForm->createView()
         ]);
     }
 

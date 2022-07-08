@@ -19,7 +19,7 @@ class UpdatePasswordFormType extends AbstractType
         ->add('oldPassword', PasswordType::class, [
             'mapped' => true,
             'attr' => [
-                'class' => 'form-control'
+                'class' => 'form-control mb-3'
             ],
             'constraints' => [
                 new NotBlank([
@@ -31,7 +31,7 @@ class UpdatePasswordFormType extends AbstractType
         ->add('newPassword', RepeatedType::class, [
             'type' => PasswordType::class,            
             'mapped' => true,
-            'options' => ['attr' => ['class' => 'form-control']],
+            'options' => ['attr' => ['class' => 'form-control mb-3']],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Entrez un mot de passe',
@@ -42,8 +42,8 @@ class UpdatePasswordFormType extends AbstractType
                     'max' => 4096,
                 ]),
             ],
-            'first_options'  => ['label' => 'Mot de passe :'],
-            'second_options' => ['label' => 'Vérifier mot de passe'],
+            'first_options'  => ['label' => 'Nouveau mot de passe :'],
+            'second_options' => ['label' => 'Vérifier nouveau mot de passe'],
             'invalid_message' => 'Les mots de passes ne correspondent pas'
         ])
         ;
